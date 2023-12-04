@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "7zV9blAfDq8oQfFk032U4GCULMNDC7zf8ex/R78ZqeLd61jydFhqgfgO2zswZwCdBaxsrz2HLEDsTOROKCpdNw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4\\EindopdrachtWeb4\\Eindopdracht.REST\\Eindopdracht.REST.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\barbi\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\barbi\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\barbi\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\barbi\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\barbi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\barbi\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
