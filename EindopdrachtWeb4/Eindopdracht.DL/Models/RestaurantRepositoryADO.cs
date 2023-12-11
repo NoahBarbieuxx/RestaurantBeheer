@@ -22,45 +22,60 @@ namespace Eindopdracht.DL.Models
 
         public List<Restaurant> ZoekRestaurants(string postcode, string keuken)
         {
-            string sql = "SELECT * FROM Restaurants WHERE (@postcode IS NULL OR LEFT(postcode, 4) = LEFT(@postcode, 4)) AND (@keuken IS NULL OR keuken = @keuken)";
-
-            using (SqlConnection conn = new SqlConnection(_connectionString))
-            using (SqlCommand cmd = conn.CreateCommand())
+            try
             {
-                conn.Open();
-                cmd.CommandText = sql;
+                string sql = "SELECT * FROM Restaurants WHERE (@postcode IS NULL OR LEFT(locatie, 4) = LEFT(@postcode, 4)) AND (@keuken IS NULL OR keuken = @keuken)";
 
-                cmd.Parameters.AddWithValue("@postcode", string.IsNullOrEmpty(postcode) ? (object)DBNull.Value : postcode);
-                cmd.Parameters.AddWithValue("@keuken", string.IsNullOrEmpty(keuken) ? (object)DBNull.Value : keuken);
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    List<Restaurant> restaurants = new List<Restaurant>();
+                    conn.Open();
+                    cmd.CommandText = sql;
 
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@postcode", string.IsNullOrEmpty(postcode) ? (object)DBNull.Value : postcode);
+                    cmd.Parameters.AddWithValue("@keuken", string.IsNullOrEmpty(keuken) ? (object)DBNull.Value : keuken);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Restaurant restaurant = new Restaurant(
-                            naam: Convert.ToString(reader["Naam"]!),
-                            locatie: new Locatie
-                            {
-                                Postcode = Convert.ToString(reader["Postcode"]!),
-                                Gemeentenaam = Convert.ToString(reader["Gemeentenaam"]!),
-                                Straatnaam = Convert.ToString(reader["Straatnaam"]!),
-                                Huisnummer = Convert.ToString(reader["Huisnummer"]!)
-                            },
-                            keuken: Convert.ToString(reader["Keuken"]!),
-                            contactgegevens: new Contactgegevens(
-                                telefoonnummer: Convert.ToString(reader["telefoonnummer"]!),
-                                email: Convert.ToString(reader["email"]!)
-                            )
-                        );
+                        List<Restaurant> restaurants = new List<Restaurant>();
 
-                        restaurants.Add(restaurant);
+                        while (reader.Read())
+                        {
+                            Restaurant restaurant = new Restaurant(
+                                naam: SafeGetString(reader, "naam"),
+                                locatie: new Locatie
+                                {
+                                    Postcode = SafeGetString(reader, "postcode"),
+                                    Gemeentenaam = SafeGetString(reader, "gemeentenaam"),
+                                    Straatnaam = SafeGetString(reader, "straatnaam"),
+                                    Huisnummer = SafeGetString(reader, "huisnummer")
+                                },
+                                keuken: SafeGetString(reader, "keuken"),
+                                contactgegevens: new Contactgegevens(
+                                    telefoonnummer: SafeGetString(reader, "telefoonnummer"),
+                                    email: SafeGetString(reader, "email")
+                                )
+                            );
+
+                            restaurants.Add(restaurant);
+                        }
+
+                        return restaurants;
                     }
-
-                    return restaurants;
                 }
             }
+            catch (Exception ex)
+            {
+                // Log the exception details. You can use your preferred logging mechanism.
+                Console.WriteLine($"An error occurred in ZoekRestaurants: {ex.Message}");
+                throw; // Re-throw the exception for higher-level handling.
+            }
+        }
+
+        private string SafeGetString(SqlDataReader reader, string columnName)
+        {
+            int columnIndex = reader.GetOrdinal(columnName);
+            return !reader.IsDBNull(columnIndex) ? reader.GetString(columnIndex) : null;
         }
 
         public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen)
