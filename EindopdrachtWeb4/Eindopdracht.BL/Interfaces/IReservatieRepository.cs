@@ -13,5 +13,6 @@ namespace Eindopdracht.BL.Interfaces
         void PasReservatieAan(Reservatie reservatie);
         void AnnuleerReservatie(Reservatie reservatie);
         List<Reservatie> ZoekReservaties(DateTime datum);
+        Reservatie GeefReservatieById(int reservatienummer);
     }
 }

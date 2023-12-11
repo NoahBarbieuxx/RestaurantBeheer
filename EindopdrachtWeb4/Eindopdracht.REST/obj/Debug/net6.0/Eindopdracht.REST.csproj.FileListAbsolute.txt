@@ -35,3 +35,5 @@ C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\Ei
 C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\EindopdrachtWeb4\EindopdrachtWeb4\Eindopdracht.REST\obj\Debug\net6.0\Eindopdracht.REST.pdb
 C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\EindopdrachtWeb4\EindopdrachtWeb4\Eindopdracht.REST\obj\Debug\net6.0\Eindopdracht.REST.genruntimeconfig.cache
 C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\EindopdrachtWeb4\EindopdrachtWeb4\Eindopdracht.REST\obj\Debug\net6.0\ref\Eindopdracht.REST.dll
+C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\EindopdrachtWeb4\EindopdrachtWeb4\Eindopdracht.REST\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\barbi\Documents\hogent\sem3\1 - Web4 (MA)\Solutions\EindopdrachtWeb4\EindopdrachtWeb4\EindopdrachtWeb4\Eindopdracht.REST\bin\Debug\net6.0\Newtonsoft.Json.dll

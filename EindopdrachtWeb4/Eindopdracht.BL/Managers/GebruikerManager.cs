@@ -65,5 +65,17 @@ namespace Eindopdracht.BL.Managers
                 throw new GebruikerManagerException("HeeftGebruiker", ex);
             }
         }
+
+        public Gebruiker GeefGebruikerById(int klantnummer)
+        {
+            try
+            {
+                return _repo.GeefGebruikerById(klantnummer);
+            }
+            catch (Exception ex)
+            {
+                throw new GebruikerManagerException("GeefGebruikerById", ex);
+            }
+        }
     }
 }

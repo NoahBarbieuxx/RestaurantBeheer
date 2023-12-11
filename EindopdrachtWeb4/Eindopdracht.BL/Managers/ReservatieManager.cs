@@ -19,11 +19,12 @@ namespace Eindopdracht.BL.Managers
             _repo = repo;
         }
 
-        public void MaakReservatie(Reservatie reservatie)
+        public Reservatie MaakReservatie(Reservatie reservatie)
         {
             try
             {
                 _repo.MaakReservatie(reservatie);
+                return reservatie;
             }
             catch (Exception ex)
             {
@@ -64,6 +65,18 @@ namespace Eindopdracht.BL.Managers
             catch (Exception ex)
             {
                 throw new ReservatieManagerException("ZoekReservaties", ex);
+            }
+        }
+
+        public Reservatie GeefReservatieById(int reservatienummer)
+        {
+            try
+            {
+                return _repo.GeefReservatieById(reservatienummer);
+            }
+            catch (Exception ex)
+            {
+                throw new ReservatieManagerException("GeefReservatieById");
             }
         }
     }

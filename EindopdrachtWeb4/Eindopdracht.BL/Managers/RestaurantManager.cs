@@ -41,5 +41,17 @@ namespace Eindopdracht.BL.Managers
                 throw new RestaurantManagerException("ZoekVrijeRestaurants", ex);
             }
         }
+
+        public Restaurant GeefRestaurantByNaam(string naam)
+        {
+            try
+            {
+                return _repo.GeefRestaurantByNaam(naam);
+            }
+            catch (Exception ex)
+            {
+                throw new RestaurantManagerException("GeefRestaurantByNaam", ex);
+            }
+        }
     }
 }

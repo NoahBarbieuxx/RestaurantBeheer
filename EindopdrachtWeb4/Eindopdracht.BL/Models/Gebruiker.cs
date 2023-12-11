@@ -10,13 +10,19 @@ namespace Eindopdracht.BL
 {
     public class Gebruiker
     {
-        public Gebruiker(int klantnummer, string naam, string email, string telefoonnummer, Locatie locatie)
+        //public Gebruiker(int klantnummer, string naam, string email, string telefoonnummer, Locatie locatie, int actief, List<Reservatie> reservaties) : this(klantnummer, naam, email, telefoonnummer, locatie, actief)
+        //{
+        //    _reservaties = reservaties;
+        //}
+
+        public Gebruiker(int klantnummer, string naam, string email, string telefoonnummer, Locatie locatie, int actief)
         {
             _klantnummer = klantnummer;
             _naam = naam;
             _email = email;
             _telefoonnummer = telefoonnummer;
             _locatie = locatie;
+            _actief = actief;
         }
 
         private int _klantnummer;
@@ -116,6 +122,35 @@ namespace Eindopdracht.BL
                 {
                     _locatie = value;
                 }
+            }
+        }
+
+        private int _actief;
+        public int Actief
+        {
+            get
+            {
+                return _actief;
+            }
+            set
+            {
+                if (value < 0 || value > 1)
+                {
+                    throw new GebruikerException("ActiefNr is ongeldig!");
+                }
+            }
+        }
+
+        private List<Reservatie> _reservaties;
+        public List<Reservatie> Reservaties
+        {
+            get
+            {
+                return _reservaties;
+            }
+            set
+            {
+                _reservaties = value;
             }
         }
     }

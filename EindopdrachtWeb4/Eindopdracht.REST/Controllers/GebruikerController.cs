@@ -1,6 +1,7 @@
 ﻿using Eindopdracht.BL;
 using Eindopdracht.BL.Managers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eindopdracht.REST.Controllers
@@ -46,7 +47,28 @@ namespace Eindopdracht.REST.Controllers
                 }
 
                 _manager.PasGebruikerAan(gebruiker);
-                return new ContentResult();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{klantnummer}")]
+        public IActionResult SchrijfGebruikerUit(int klantnummer)
+        {
+            try
+            {
+                if (!_manager.HeeftGebruiker(klantnummer))
+                {
+                    return NotFound();
+                }
+
+                Gebruiker gebruiker = _manager.GeefGebruikerById(klantnummer);
+                _manager.SchrijfGebruikerUit(gebruiker);
+
+                return NoContent();
             }
             catch (Exception ex)
             {

@@ -13,5 +13,6 @@ namespace Eindopdracht.BL.Interfaces
         void PasGebruikerAan(Gebruiker gebruiker);
         void SchrijfGebruikerUit(Gebruiker gebruiker);
         bool HeeftGebruiker(int klantnummer);
+        Gebruiker GeefGebruikerById(int klantnummer);
     }
 }

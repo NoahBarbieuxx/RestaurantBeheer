@@ -32,3 +32,6 @@ namespace Eindopdracht.REST.Controllers
         }
     }
 }
+
+// Invullen bovenaan: klantnummer, naam
+// Manager: MaakReservatie

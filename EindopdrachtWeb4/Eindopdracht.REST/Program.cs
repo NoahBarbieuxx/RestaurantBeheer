@@ -1,6 +1,7 @@
 using Eindopdracht.BL.Interfaces;
 using Eindopdracht.BL.Managers;
 using Eindopdracht.DL.Models;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Eindopdracht.REST
 {

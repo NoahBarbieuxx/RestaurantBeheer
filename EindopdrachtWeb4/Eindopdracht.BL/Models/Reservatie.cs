@@ -10,11 +10,20 @@ namespace Eindopdracht.BL.Models
 {
     public class Reservatie
     {
-        public Reservatie(int reservatienummer, Restaurant restaurantinfo, Gebruiker contactpersoon, int aantalPlaatsen, DateTime datum, TimeSpan uur, int tafelnummer)
+        public Reservatie()
+        {
+
+        }
+
+        public Reservatie(int reservatienummer, Restaurant restaurantinfo, Gebruiker contactpersoon, int aantalPlaatsen, DateTime datum, TimeSpan uur, int tafelnummer) : this(aantalPlaatsen, datum, uur, tafelnummer)
         {
             _reservatienummer = reservatienummer;
             _restaurantinfo = restaurantinfo;
             _contactpersoon = contactpersoon;
+        }
+
+        public Reservatie(int aantalPlaatsen, DateTime datum, TimeSpan uur, int tafelnummer)
+        {
             _aantalPlaatsen = aantalPlaatsen;
             _datum = datum;
             _uur = uur;

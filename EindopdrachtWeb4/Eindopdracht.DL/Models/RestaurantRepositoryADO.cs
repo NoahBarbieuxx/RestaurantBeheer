@@ -4,6 +4,7 @@ using Eindopdracht.BL.Models;
 using Eindopdracht.DL.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -81,6 +82,43 @@ namespace Eindopdracht.DL.Models
         public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen)
         {
             throw new NotImplementedException();
+        }
+
+        public Restaurant GeefRestaurantByNaam(string naam)
+        {
+            try
+            {
+                string sql = "SELECT * FROM Restaurant WHERE naam=@naam";
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = sql;
+
+                    cmd.Parameters.AddWithValue("@naam", naam);
+
+                    IDataReader reader = cmd.ExecuteReader();
+                    reader.Read();
+
+                    string locatielijn = (string)reader["locatie"];
+                    string telefoonnummer = (string)reader["telefoonnummer"];
+                    string email = (string)reader["email"];
+
+                    Restaurant restaurant = new Restaurant(
+                        (string)reader["naam"],
+                        new Locatie(locatielijn),
+                        (string)reader["keuken"],
+                        new Contactgegevens(telefoonnummer, email));
+
+                    reader.Close();
+
+                    return restaurant;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new RestaurantRepositoryException("GeefRestaurantByNaam", ex);
+            }
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Eindopdracht.BL.Interfaces
     {
         List<Restaurant> ZoekRestaurants(string postcode, string keuken);
         List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen);
+        Restaurant GeefRestaurantByNaam(string naam);
     }
 }
