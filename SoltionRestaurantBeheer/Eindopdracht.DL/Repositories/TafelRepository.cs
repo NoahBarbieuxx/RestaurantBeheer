@@ -33,9 +33,7 @@ namespace Eindopdracht.DL.Repositories
                 {
                     TafelEF tafelEF = MapTafel.MapToDB(tafel);
                     restaurantEF.Tafels.Add(tafelEF);
-
                     SaveAndClear();
-
                     tafel.TafelId = tafelEF.TafelId;
                 }
                 else
@@ -49,12 +47,35 @@ namespace Eindopdracht.DL.Repositories
             }
         }
 
-        public Tafel KiesTafel(int plaatsen)
+        public Tafel GeefTafelById(int tafelId)
+        {
+            try
+            {
+                if (_ctx.Tafels.Any(x => x.TafelId == tafelId))
+                {
+                    TafelEF tafelEF = _ctx.Tafels
+                        .AsNoTracking()
+                        .FirstOrDefault(x => x.TafelId == tafelId);
+
+                    return MapTafel.MapToDomain(tafelEF);
+                }
+                else
+                {
+                    throw new TafelRepositoryException($"Tafel met id: {tafelId} niet gevonden!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new TafelRepositoryException("GeefTafelById", ex);
+            }
+        }
+
+        public Tafel KiesTafel(string naam, int plaatsen)
         {
             try
             {
                 List<TafelEF> beschikbareTafels = _ctx.Tafels
-                    .Where(x => x.Plaatsen >= plaatsen)
+                    .Where(x => x.Plaatsen >= plaatsen && x.Restaurant.Naam == naam)
                     .ToList();
 
                 List<Tafel> tafels = new List<Tafel>();
@@ -87,106 +108,5 @@ namespace Eindopdracht.DL.Repositories
             _ctx.SaveChanges();
             _ctx.ChangeTracker.Clear();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        Tafel ITafelRepository.GeefTafelById(int tafelId)
-        {
-            throw new NotImplementedException();
-        }
-
-        List<Tafel> ITafelRepository.GeefTafelsByDatum(DateTime datum)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public Tafel GeefTafelById(int tafelId)
-        //{
-        //    try
-        //    {
-        //        TafelEF tafelEF = _ctx.Tafels
-        //            .Include(x => x.Restaurant)
-        //            .AsNoTracking()
-        //            .FirstOrDefault(x => x.TafelId == tafelId);
-
-        //        if (tafelEF == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            return MapTafel.MapToDomain(tafelEF);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new RepositoryException("GeefTafelById - Repository", ex);
-        //    }
-        //}
-
-        //public List<Tafel> GeefTafelsByDatum(DateTime datum)
-        //{
-        //    try
-        //    {
-        //        List<Tafel> tafels = new List<Tafel>();
-
-        //        List<TafelEF> tafelsEF = _ctx.Tafels
-        //            .Include(x => x.Restaurant)
-        //            .AsNoTracking()
-        //            .ToList();
-
-        //        foreach (TafelEF tafelEF in tafelsEF)
-        //        {
-        //            Tafel tafel = MapTafel.MapToDomain(tafelEF);
-        //            tafels.Add(tafel);
-        //        }
-
-        //        return tafels;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new RepositoryException("GeefTafelsByDatum - Repository", ex);
-        //    }
-        //}
-
-
-
-
-
-
     }
 }

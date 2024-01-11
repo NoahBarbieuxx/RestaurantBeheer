@@ -43,6 +43,34 @@ namespace Eindopdracht.DL.Repositories
             }
         }
 
+        public Restaurant GeefRestaurantByNaam(string naam, bool toonTafels)
+        {
+            try
+            {
+                if (_ctx.Restaurants.Any(x => x.Naam == naam))
+                {
+                    IQueryable<RestaurantEF> query = _ctx.Restaurants.AsNoTracking();
+
+                    if (toonTafels)
+                    {
+                        query = query.Include(x => x.Tafels);
+                    }
+
+                    RestaurantEF restaurantEF = query.FirstOrDefault(x => x.Naam == naam);
+
+                    return MapRestaurant.MapToDomain(restaurantEF);
+                }
+                else
+                {
+                    throw new RestaurantRepositoryException($"Restaurant met naam: {naam} niet gevonden!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new RestaurantRepositoryException("GeefRestaurantByNaam - Repository", ex);
+            }
+        }
+
         public void PasRestaurantAan(Restaurant restaurant)
         {
             try
@@ -69,7 +97,7 @@ namespace Eindopdracht.DL.Repositories
             {
                 if (_ctx.Restaurants.Any(x => x.Naam == naam))
                 {
-                    RestaurantEF restaurantEF = _ctx.Restaurants.FirstOrDefault(x => x.Naam == naam);
+                    RestaurantEF restaurantEF = _ctx.Restaurants.FirstOrDefault(x => x.Naam == naam && x.Reservaties.Any());
                     _ctx.Restaurants.Remove(restaurantEF);
                     SaveAndClear();
                 }
@@ -81,18 +109,6 @@ namespace Eindopdracht.DL.Repositories
             catch (Exception ex)
             {
                 throw new RestaurantRepositoryException("VerwijderRestaurant", ex);
-            }
-        }
-
-        public bool HeeftRestaurant(Restaurant restaurant)
-        {
-            try
-            {
-                return _ctx.Restaurants.Any(x => x.Naam == restaurant.Naam);
-            }
-            catch (Exception ex)
-            {
-                throw new RestaurantRepositoryException("HeeftRestaurant", ex);
             }
         }
 
@@ -135,136 +151,54 @@ namespace Eindopdracht.DL.Repositories
             }
         }
 
+        public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
+        {
+            try
+            {
+                IQueryable<RestaurantEF> query = _ctx.Restaurants
+                    .Include(x => x.Tafels)
+                    .Include(x => x.Reservaties)
+                    .AsNoTracking();
 
+                DateTime eindTijdGrens = datum.AddMinutes(90);
+
+                query = query.Where(restaurant =>
+                    restaurant.Tafels.Any(tafel =>
+                        !restaurant.Reservaties.Any(reservatie =>
+                            (datum >= reservatie.Datum && datum < reservatie.Datum.AddMinutes(90)) ||
+                            (eindTijdGrens > reservatie.Datum && eindTijdGrens <= reservatie.Datum.AddMinutes(90))
+                        )
+                    )
+                );
+
+                List<Restaurant> resultaten = query
+                    .Select(x => MapRestaurant.MapToDomain(x))
+                    .ToList();
+
+                return resultaten;
+            }
+            catch (Exception ex)
+            {
+                throw new ReservatieRepositoryException("ZoekVrijeRestaurants", ex);
+            }
+        }
+
+        public bool HeeftRestaurant(Restaurant restaurant)
+        {
+            try
+            {
+                return _ctx.Restaurants.Any(x => x.Naam == restaurant.Naam);
+            }
+            catch (Exception ex)
+            {
+                throw new RestaurantRepositoryException("HeeftRestaurant", ex);
+            }
+        }
 
         private void SaveAndClear()
         {
             _ctx.SaveChanges();
             _ctx.ChangeTracker.Clear();
         }
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        List<Restaurant> IRestaurantRepository.ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
-        //{
-        //    try
-        //    {
-        //        IQueryable<RestaurantEF> query = _ctx.Restaurants;
-
-        //        query = query.Where(x => x.Reservaties.All(reservatie => reservatie.Datum == datum));
-
-        //        List<Restaurant> resultaten = query
-        //            .Select(x => MapRestaurant.MapToDomain(x))
-        //            .ToList();
-
-        //        return resultaten;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new RepositoryException("ZoekVrijeRestaurants - Repository", ex);
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public Restaurant GeefRestaurantByNaam(string naam)
-        {
-            try
-            {
-                RestaurantEF restaurantEF = _ctx.Restaurants
-                    .AsNoTracking()
-                    .Include(x => x.Tafels)
-                    .FirstOrDefault(x => x.Naam == naam);
-
-                if (restaurantEF == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return MapRestaurant.MapToDomain(restaurantEF);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new RestaurantRepositoryException("GeefRestaurantByNaam - Repository", ex);
-            }
-        }
-
-
-
-
-
-
-
-
     }
 }

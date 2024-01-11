@@ -47,11 +47,9 @@ namespace Eindopdracht.DL.Model
         public string Gemeentenaam { get; set; }
 
         [Column(TypeName = "varchar(250)")]
-        [Required]
         public string Straatnaam { get; set; }
 
         [Column(TypeName = "varchar(50)")]
-        [Required]
         public string Huisnummer { get; set; }
 
         [Column(TypeName = "varchar(250)")]

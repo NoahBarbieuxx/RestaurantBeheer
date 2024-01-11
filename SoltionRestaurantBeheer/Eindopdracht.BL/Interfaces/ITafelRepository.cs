@@ -14,7 +14,6 @@ namespace Eindopdracht.BL.Interfaces
         Tafel GeefTafelById(int tafelId);
 
         // ANDERE
-        List<Tafel> GeefTafelsByDatum(DateTime datum);
-        Tafel KiesTafel(int plaatsen);
+        Tafel KiesTafel(string naam, int plaatsen);
     }
 }

@@ -42,5 +42,25 @@ namespace EindopdrachtBeheerder.REST.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{tafelId}")]
+        public ActionResult<Tafel> GeefTafelById(int tafelId)
+        {
+            try
+            {
+                _logger.LogInformation($"GeefTafelById opgeroepen: {tafelId}!");
+
+                Tafel tafel = _tafelManager.GeefTafelById(tafelId);
+
+                _logger.LogInformation($"Tafel met id: {tafelId} correct opgehald!");
+
+                return Ok(tafel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Tafel niet correct opgehaald: {tafelId}!");
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

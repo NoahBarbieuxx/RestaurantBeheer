@@ -8,7 +8,6 @@ namespace EindopdrachtGebruiker.REST.Models.Input
         public string Naam { get; set; }
         public string Email { get; set; }
         public string Telefoonnummer { get; set; }
-        public int Actief { get; set; }
         public Locatie Locatie { get; set; }
     }
 }

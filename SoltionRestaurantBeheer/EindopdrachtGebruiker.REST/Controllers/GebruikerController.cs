@@ -27,7 +27,8 @@ namespace EindopdrachtGebruiker.REST.Controllers
             try
             {
                 _logger.LogInformation($"RegistreerGebruiker opgeroepen!");
-                Gebruiker gebruiker = new Gebruiker(gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, gebruikerInput.Locatie, gebruikerInput.Actief);
+
+                Gebruiker gebruiker = new Gebruiker(gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, gebruikerInput.Locatie, 1);
 
                 if (_gebruikerManager.HeeftGebruiker(gebruiker))
                 {
@@ -64,7 +65,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Gebruiker met id: {klantnummer} niet correct opgehaald!");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -75,7 +76,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             {
                 _logger.LogInformation($"PasGebruikerAan opgeroepen: {klantnummer}!");
 
-                Gebruiker gebruiker = new Gebruiker(klantnummer, gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, gebruikerInput.Actief, gebruikerInput.Locatie);
+                Gebruiker gebruiker = new Gebruiker(klantnummer, gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, 1, gebruikerInput.Locatie);
 
                 _gebruikerManager.PasGebruikerAan(gebruiker);
 
@@ -106,7 +107,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Gebruiker niet correct uitgeschreven: {klantnummer}!");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

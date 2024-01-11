@@ -32,7 +32,7 @@ namespace Eindopdracht.BL.Models
             {
                 if (value <= 0)
                 {
-                    throw new TafelException("TafelId is ongeldig!");
+                    throw new TafelException("TafelId is ongeldig! (Groter dan 0)");
                 }
                 else
                 {
@@ -52,7 +52,7 @@ namespace Eindopdracht.BL.Models
             {
                 if (value <= 0)
                 {
-                    throw new TafelException("PLaatsen is ongeldig!");
+                    throw new TafelException("PLaatsen is ongeldig! (Groter dan 0)");
                 }
                 else 
                 {

@@ -30,11 +30,11 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Restaurant GeefRestaurantByNaam(string naam)
+        public Restaurant GeefRestaurantByNaam(string naam, bool toonTafels)
         {
             try
             {
-                return _restaurantRepository.GeefRestaurantByNaam(naam);
+                return _restaurantRepository.GeefRestaurantByNaam(naam, toonTafels);
             }
             catch (Exception ex)
             {

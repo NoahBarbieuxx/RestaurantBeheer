@@ -42,23 +42,11 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Tafel> GeefTafelsByDatum(DateTime datum)
+        public Tafel KiesTafel(string naam, int plaatsen)
         {
             try
             {
-                return _tafelRepository.GeefTafelsByDatum(datum);
-            }
-            catch (Exception ex)
-            {
-                throw new TafelManagerException("GeefTafelsByDatum", ex);
-            }
-        }
-
-        public Tafel KiesTafel(int plaatsen)
-        {
-            try
-            {
-                return _tafelRepository.KiesTafel(plaatsen);
+                return _tafelRepository.KiesTafel(naam, plaatsen);
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace Eindopdracht.BL.Interfaces
     {
         // CRUD
         void RegistreerRestaurant(Restaurant restaurant);
-        Restaurant GeefRestaurantByNaam(string naam);
+        Restaurant GeefRestaurantByNaam(string naam, bool toonTafels);
         void PasRestaurantAan(Restaurant restaurant);
         void VerwijderRestaurant(string naam);
 

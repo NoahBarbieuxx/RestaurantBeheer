@@ -34,6 +34,5 @@ namespace Eindopdracht.DL.Mappers
                 throw new MapperException("MapTafel - MapToDomain", ex);
             }
         }
-
     }
 }

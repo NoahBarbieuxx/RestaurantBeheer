@@ -47,7 +47,6 @@ namespace Eindopdracht.DL.Mappers
             {
                 Locatie locatie = new Locatie(restaurantEF.Postcode, restaurantEF.Gemeentenaam, restaurantEF.Straatnaam, restaurantEF.Huisnummer);
                 Contactgegevens contactgegevens = new Contactgegevens(restaurantEF.Telefoonnummer, restaurantEF.Email);
-
                 Restaurant restaurant;
 
                 if (restaurantEF.Tafels == null)
@@ -64,7 +63,6 @@ namespace Eindopdracht.DL.Mappers
                     }
 
                     restaurant = new Restaurant(restaurantEF.Naam, locatie, restaurantEF.Keuken, contactgegevens, tafels);
-
                 }
 
                 return restaurant;

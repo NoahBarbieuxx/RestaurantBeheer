@@ -35,22 +35,29 @@ namespace EindopdrachtGebruiker.REST.Controllers
                 _logger.LogInformation($"MaakReservatie opgeroepen!");
 
                 Gebruiker gebruiker = _gebruikerManager.GeefGebruikerById(klantnummer);
-                Restaurant restaurant = _restaurantManager.GeefRestaurantByNaam(naam);
-                Tafel tafel = _tafelManager.KiesTafel(reservatieInput.AantalPlaatsen);
+                Restaurant restaurant = _restaurantManager.GeefRestaurantByNaam(naam, false);
+                Tafel tafel = _tafelManager.KiesTafel(naam, reservatieInput.AantalPlaatsen);
 
-                Reservatie reservatie = new Reservatie(restaurant, gebruiker, reservatieInput.AantalPlaatsen, reservatieInput.Datum, tafel);
+                DateTime afgerondeDatum = RoundToNearestHalfHour(reservatieInput.Datum);
+                Reservatie reservatie = new Reservatie(restaurant, gebruiker, reservatieInput.AantalPlaatsen, afgerondeDatum, tafel);
 
                 _reservatieManager.MaakReservatie(reservatie);
 
                 _logger.LogInformation($"Reservatie correct aangemaakt!");
 
-                return Ok(tafel);
+                return Ok(reservatie);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Reservatie niet correct aangemaakt!");
                 return BadRequest(ex.Message);
             }
+        }
+
+        private DateTime RoundToNearestHalfHour(DateTime input)
+        {
+            int minutes = (input.Minute + 15) / 30 * 30;
+            return new DateTime(input.Year, input.Month, input.Day, input.Hour, minutes, 0);
         }
 
         [HttpGet("geefreservatiebyid{reservatienummer}")]
@@ -69,7 +76,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Reservatie niet correct opgehaald: {reservatienummer}!");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -131,7 +138,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Reservatie niet correct geannuleerd: {reservatienummer}!");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -151,7 +158,7 @@ namespace EindopdrachtGebruiker.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Reservaties niet correct opgehaald: {datum}!");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

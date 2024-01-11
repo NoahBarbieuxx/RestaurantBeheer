@@ -120,7 +120,7 @@ namespace Eindopdracht.BL.Models
             {
                 if (value < DateTime.Now)
                 {
-                    throw new ReservatieException("Datum is ongeldig!");
+                    throw new ReservatieException("Datum is ongeldig! (Toekomst)");
                 }
                 else
                 {

@@ -35,7 +35,7 @@ namespace EindopdrachtBeheerder.REST.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Reservaties niet correct opgehaald: {naam}, {beginDatum}");
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }
