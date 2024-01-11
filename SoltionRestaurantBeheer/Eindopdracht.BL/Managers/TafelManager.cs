@@ -18,7 +18,7 @@ namespace Eindopdracht.BL.Managers
             _tafelRepository = tafelRepository;
         }
 
-        public void MaakTafel(string naam, Tafel tafel)
+        public virtual void MaakTafel(string naam, Tafel tafel)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Tafel GeefTafelById(int tafelId)
+        public virtual Tafel GeefTafelById(int tafelId)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Tafel KiesTafel(string naam, int plaatsen)
+        public virtual Tafel KiesTafel(string naam, int plaatsen)
         {
             try
             {

@@ -97,7 +97,7 @@ namespace Eindopdracht.DL.Repositories
             {
                 if (_ctx.Restaurants.Any(x => x.Naam == naam))
                 {
-                    RestaurantEF restaurantEF = _ctx.Restaurants.FirstOrDefault(x => x.Naam == naam && x.Reservaties.Any());
+                    RestaurantEF restaurantEF = _ctx.Restaurants.FirstOrDefault(x => x.Naam == naam);
                     _ctx.Restaurants.Remove(restaurantEF);
                     SaveAndClear();
                 }

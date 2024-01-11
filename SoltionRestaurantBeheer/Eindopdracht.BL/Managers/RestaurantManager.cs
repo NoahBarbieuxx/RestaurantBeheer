@@ -18,7 +18,7 @@ namespace Eindopdracht.BL.Managers
             _restaurantRepository = restaurantRepository;
         }
 
-        public void RegistreerRestaurant(Restaurant restaurant)
+        public virtual void RegistreerRestaurant(Restaurant restaurant)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Restaurant GeefRestaurantByNaam(string naam, bool toonTafels)
+        public virtual Restaurant GeefRestaurantByNaam(string naam, bool toonTafels)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void PasRestaurantAan(Restaurant restaurant)
+        public virtual void PasRestaurantAan(Restaurant restaurant)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void VerwijderRestaurant(string naam)
+        public virtual void VerwijderRestaurant(string naam)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Restaurant> ZoekRestaurants(string? postcode, string? keuken)
+        public virtual List<Restaurant> ZoekRestaurants(string? postcode, string? keuken)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
+        public virtual List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public bool HeeftRestaurant(Restaurant restaurant)
+        public virtual bool HeeftRestaurant(Restaurant restaurant)
         {
             try
             {

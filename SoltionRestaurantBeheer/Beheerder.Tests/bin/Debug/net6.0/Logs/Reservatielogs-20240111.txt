@@ -1,0 +1,8 @@
+2024-01-11T23:49:52.1005580+01:00  [INF] GeefOverzichtReservaties opgeroepen: TestRestaurant, 11/01/2024 23:49:52 (50712be7)
+2024-01-11T23:49:52.1055118+01:00  [INF] Reservaties correct opgehaald: TestRestaurant, 11/01/2024 23:49:52 (8b2e9bfb)
+2024-01-11T23:49:52.1165836+01:00  [INF] GeefOverzichtReservaties opgeroepen: TestRestaurant, 11/01/2024 23:49:52 (50712be7)
+2024-01-11T23:49:52.1167697+01:00  [ERR] Reservaties niet correct opgehaald: TestRestaurant, 11/01/2024 23:49:52 (60fefdf7)
+2024-01-11T23:58:05.3894590+01:00  [INF] GeefOverzichtReservaties opgeroepen: TestRestaurant, 11/01/2024 23:58:05 (24a1ddb2)
+2024-01-11T23:58:05.4033328+01:00  [INF] GeefOverzichtReservaties opgeroepen: TestRestaurant, 11/01/2024 23:58:05 (24a1ddb2)
+2024-01-11T23:58:05.3939168+01:00  [INF] Reservaties correct opgehaald: TestRestaurant, 11/01/2024 23:58:05 (306be827)
+2024-01-11T23:58:05.4035510+01:00  [ERR] Reservaties niet correct opgehaald: TestRestaurant, 11/01/2024 23:58:05 (13bd8aaa)

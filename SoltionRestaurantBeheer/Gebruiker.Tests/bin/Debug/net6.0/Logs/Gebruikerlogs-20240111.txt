@@ -1,0 +1,4 @@
+2024-01-11T22:49:37.2472600+01:00  [INF] RegistreerGebruiker opgeroepen! (f2cca18a)
+2024-01-11T22:49:37.2585788+01:00  [ERR] Gebruiker niet correct geregistreerd! (faed33ec)
+2024-01-11T22:51:47.4926971+01:00  [INF] RegistreerGebruiker opgeroepen! (f2cca18a)
+2024-01-11T22:51:47.4986128+01:00  [ERR] Gebruiker niet correct geregistreerd! (faed33ec)

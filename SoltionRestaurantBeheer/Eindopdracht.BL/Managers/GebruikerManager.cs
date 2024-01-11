@@ -18,7 +18,7 @@ namespace Eindopdracht.BL.Managers
             _gebruikerRepository = gebruikerRepository;
         }
 
-        public void RegistreerGebruiker(Gebruiker gebruiker)
+        public virtual void RegistreerGebruiker(Gebruiker gebruiker)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Gebruiker GeefGebruikerById(int klantnummer)
+        public virtual Gebruiker GeefGebruikerById(int klantnummer)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void PasGebruikerAan(Gebruiker gebruiker)
+        public virtual void PasGebruikerAan(Gebruiker gebruiker)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void SchrijfGebruikerUit(int klantnummer)
+        public virtual void SchrijfGebruikerUit(int klantnummer)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public bool HeeftGebruiker(Gebruiker gebruiker)
+        public virtual bool HeeftGebruiker(Gebruiker gebruiker)
         {
             try
             {

@@ -18,7 +18,7 @@ namespace Eindopdracht.BL.Managers
             _reservatieRepository = reservatieRepository;
         }
 
-        public void MaakReservatie(Reservatie reservatie)
+        public virtual void MaakReservatie(Reservatie reservatie)
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Reservatie GeefReservatieById(int reservatienummer)
+        public virtual Reservatie GeefReservatieById(int reservatienummer)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void PasReservatieAan(Reservatie reservatie)
+        public virtual void PasReservatieAan(Reservatie reservatie)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public void AnnuleerReservatie(int reservatienummer)
+        public virtual void AnnuleerReservatie(int reservatienummer)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Reservatie> ZoekReservaties(int klantnummer, DateTime? startdatum)
+        public virtual List<Reservatie> ZoekReservaties(int klantnummer, DateTime? startdatum)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Reservatie> GeefOverzichtReservaties(string naam, DateTime startdatum, DateTime? einddatum)
+        public virtual List<Reservatie> GeefOverzichtReservaties(string naam, DateTime startdatum, DateTime? einddatum)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public bool HeeftReservatie(Reservatie reservatie)
+        public virtual bool HeeftReservatie(Reservatie reservatie)
         {
             try
             {
