@@ -15,20 +15,14 @@ namespace Eindopdracht.DL.Model
         {
         }
 
-        public TafelEF(int tafelId, string tafelnummer, int plaatsen, RestaurantEF restaurant)
+        public TafelEF(int tafelId, int plaatsen)
         {
             TafelId = tafelId;
-            Tafelnummer = tafelnummer;
             Plaatsen = plaatsen;
-            Restaurant = restaurant;
         }
 
         [Key]
         public int TafelId { get; set; }
-
-        [Column(TypeName = "varchar(250)")]
-        [Required]
-        public string Tafelnummer { get; set; }
 
         [Required]
         public int Plaatsen { get; set; }

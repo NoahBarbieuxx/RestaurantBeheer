@@ -66,11 +66,11 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Reservatie> ZoekReservaties(DateTime startdatum, DateTime einddatum)
+        public List<Reservatie> ZoekReservaties(int klantnummer, DateTime? startdatum)
         {
             try
             {
-                return _reservatieRepository.ZoekReservaties(startdatum, einddatum);
+                return _reservatieRepository.ZoekReservaties(klantnummer, startdatum);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Reservatie> GeefOverzichtReservaties(string naam, DateTime startdatum, DateTime einddatum)
+        public List<Reservatie> GeefOverzichtReservaties(string naam, DateTime startdatum, DateTime? einddatum)
         {
             try
             {

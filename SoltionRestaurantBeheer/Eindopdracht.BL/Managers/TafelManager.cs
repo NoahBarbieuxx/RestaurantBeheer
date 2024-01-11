@@ -18,11 +18,11 @@ namespace Eindopdracht.BL.Managers
             _tafelRepository = tafelRepository;
         }
 
-        public void MaakTafel(Tafel tafel)
+        public void MaakTafel(string naam, Tafel tafel)
         {
             try
             {
-                _tafelRepository.MaakTafel(tafel);
+                _tafelRepository.MaakTafel(naam, tafel);
             }
             catch (Exception ex)
             {
@@ -42,18 +42,6 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public Tafel GeefTafelByNummer(string nummer)
-        {
-            try
-            {
-                return _tafelRepository.GeefTafelByNummer(nummer);
-            }
-            catch (Exception ex)
-            {
-                throw new TafelManagerException("GeefTafelByNummer", ex);
-            }
-        }
-
         public List<Tafel> GeefTafelsByDatum(DateTime datum)
         {
             try
@@ -66,15 +54,15 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public bool HeeftTafel(Tafel tafel)
+        public Tafel KiesTafel(int plaatsen)
         {
             try
             {
-                return _tafelRepository.HeeftTafel(tafel);
+                return _tafelRepository.KiesTafel(plaatsen);
             }
             catch (Exception ex)
             {
-                throw new TafelManagerException("HeeftTafel", ex);
+                throw new TafelManagerException("KiesTafel", ex);
             }
         }
     }

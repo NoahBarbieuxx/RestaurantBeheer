@@ -22,6 +22,19 @@ namespace Eindopdracht.DL.Model
             Telefoonnummer = telefoonnummer;
         }
 
+        public RestaurantEF(string naam, string postcode, string gemeentenaam, string straatnaam, string huisnummer, string keuken, string email, string telefoonnummer, List<TafelEF> tafels)
+        {
+            Naam = naam;
+            Postcode = postcode;
+            Gemeentenaam = gemeentenaam;
+            Straatnaam = straatnaam;
+            Huisnummer = huisnummer;
+            Keuken = keuken;
+            Email = email;
+            Telefoonnummer = telefoonnummer;
+            Tafels = tafels;
+        }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Naam { get; set; }
 

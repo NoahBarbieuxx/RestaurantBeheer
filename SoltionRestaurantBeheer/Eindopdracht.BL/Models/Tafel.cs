@@ -10,19 +10,15 @@ namespace Eindopdracht.BL.Models
 {
     public class Tafel
     {
-        public Tafel(int tafelId, string tafelnummer, int plaatsen, Restaurant restaurant)
+        public Tafel(int tafelId, int plaatsen)
         {
             TafelId = tafelId;
-            Tafelnummer = tafelnummer;
             Plaatsen = plaatsen;
-            Restaurant = restaurant;
         }
 
-        public Tafel(string tafelnummer, int plaatsen, Restaurant restaurant)
+        public Tafel(int plaatsen)
         {
-            Tafelnummer = tafelnummer;
             Plaatsen = plaatsen;
-            Restaurant = restaurant;
         }
 
         private int _tafelId;
@@ -38,25 +34,9 @@ namespace Eindopdracht.BL.Models
                 {
                     throw new TafelException("TafelId is ongeldig!");
                 }
-            }
-        }
-
-        private string _tafelnummer;
-        public string Tafelnummer
-        {
-            get
-            {
-                return _tafelnummer;
-            }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new TafelException("Tafelnummer is ongeldig!");
-                }
                 else
                 {
-                    _tafelnummer = value;
+                    _tafelId = value;
                 }
             }
         }
@@ -77,26 +57,6 @@ namespace Eindopdracht.BL.Models
                 else 
                 {
                     _plaatsen = value;
-                }
-            }
-        }
-
-        private Restaurant _restaurant;
-        public Restaurant Restaurant
-        {
-            get
-            {
-                return _restaurant;
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new TafelException("Restaurant is ongeldig!");
-                }
-                else
-                {
-                    _restaurant = value;
                 }
             }
         }

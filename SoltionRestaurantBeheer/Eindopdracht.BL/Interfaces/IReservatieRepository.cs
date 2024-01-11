@@ -16,8 +16,8 @@ namespace Eindopdracht.BL.Interfaces
         void AnnuleerReservatie(int reservatienummer);
 
         // ANDERE
-        List<Reservatie> ZoekReservaties(DateTime begindatum, DateTime einddatum);
-        List<Reservatie> GeefOverzichtReservaties(string naam, DateTime begindatum, DateTime einddatum);
+        List<Reservatie> ZoekReservaties(int klantnummer, DateTime? begindatum);
+        List<Reservatie> GeefOverzichtReservaties(string naam, DateTime begindatum, DateTime? einddatum);
         bool HeeftReservatie(Reservatie reservatie);
     }
 }

@@ -22,96 +22,30 @@ namespace Eindopdracht.DL.Repositories
             _ctx = new RestaurantBeheerContext(connectionString);
         }
 
-        public Tafel GeefTafelById(int tafelId)
+        public void MaakTafel(string naam, Tafel tafel)
         {
             try
             {
-                TafelEF tafelEF = _ctx.Tafels
-                    .Include(x => x.Restaurant)
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.TafelId == tafelId);
+                RestaurantEF restaurantEF = _ctx.Restaurants
+                    .FirstOrDefault(x => x.Naam == naam);
 
-                if (tafelEF == null)
+                if (restaurantEF != null)
                 {
-                    return null;
+                    TafelEF tafelEF = MapTafel.MapToDB(tafel);
+                    restaurantEF.Tafels.Add(tafelEF);
+
+                    SaveAndClear();
+
+                    tafel.TafelId = tafelEF.TafelId;
                 }
                 else
                 {
-                    return MapTafel.MapToDomain(tafelEF);
+                    throw new TafelRepositoryException($"Restaurant met naam: {naam} niet gevonden!");
                 }
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("GeefTafelById - Repository", ex);
-            }
-        }
-
-        public Tafel GeefTafelByNummer(string nummer)
-        {
-            try
-            {
-                TafelEF tafelEF = _ctx.Tafels
-                    .Include(x => x.Restaurant)
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.Tafelnummer == nummer);
-
-                return MapTafel.MapToDomain(tafelEF);
-            }
-            catch (Exception ex)
-            {
-                throw new RepositoryException("GeefTafelByNummer - Repository", ex);
-            }
-        }
-
-        public List<Tafel> GeefTafelsByDatum(DateTime datum)
-        {
-            try
-            {
-                List<Tafel> tafels = new List<Tafel>();
-
-                List<TafelEF> tafelsEF = _ctx.Tafels
-                    .Include(x => x.Restaurant)
-                    .AsNoTracking()
-                    .ToList();
-
-                foreach (TafelEF tafelEF in tafelsEF)
-                {
-                    Tafel tafel = MapTafel.MapToDomain(tafelEF);
-                    tafels.Add(tafel);
-                }
-
-                return tafels;
-            }
-            catch (Exception ex)
-            {
-                throw new RepositoryException("GeefTafelsByDatum - Repository", ex);
-            }
-        }
-
-        public void MaakTafel(Tafel tafel)
-        {
-            try
-            {
-                TafelEF tafelEF = MapTafel.MapToDB(tafel, _ctx);
-                _ctx.Tafels.Add(tafelEF);
-                SaveAndClear();
-                tafel.TafelId = tafelEF.TafelId;
-            }
-            catch (Exception ex)
-            {
-                throw new RepositoryException("MaakTafel - Repository", ex);
-            }
-        }
-
-        public bool HeeftTafel(Tafel tafel)
-        {
-            try
-            {
-                return _ctx.Tafels.Any(x => x.Tafelnummer == tafel.Tafelnummer);
-            }
-            catch (Exception ex)
-            {
-                throw new RepositoryException("HeeftRestaurant - Repository", ex);
+                throw new TafelRepositoryException("MaakTafel", ex);
             }
         }
 
@@ -120,9 +54,9 @@ namespace Eindopdracht.DL.Repositories
             try
             {
                 List<TafelEF> beschikbareTafels = _ctx.Tafels
-                    .Include(x => x.Restaurant)
                     .Where(x => x.Plaatsen >= plaatsen)
                     .ToList();
+
                 List<Tafel> tafels = new List<Tafel>();
 
                 beschikbareTafels.Sort((t1, t2) => t1.Plaatsen.CompareTo(t2.Plaatsen));
@@ -133,18 +67,18 @@ namespace Eindopdracht.DL.Repositories
                     tafels.Add(tafel);
                 }
 
-                Tafel gekozenTafel = tafels.FirstOrDefault();
+                TafelEF gekozenTafel = beschikbareTafels.FirstOrDefault();
 
                 if (gekozenTafel == null)
                 {
-                    throw new RepositoryException("KiesTafel - Geen geschikte tafel gevonden - Repository");
+                    throw new TafelRepositoryException("Geen geschikte tafel gevonden!");
                 }
 
-                return gekozenTafel;
+                return MapTafel.MapToDomain(gekozenTafel);
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("KiesTafel - Repository", ex);
+                throw new TafelRepositoryException("KiesTafel", ex);
             }
         }
 
@@ -153,5 +87,106 @@ namespace Eindopdracht.DL.Repositories
             _ctx.SaveChanges();
             _ctx.ChangeTracker.Clear();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        Tafel ITafelRepository.GeefTafelById(int tafelId)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Tafel> ITafelRepository.GeefTafelsByDatum(DateTime datum)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //public Tafel GeefTafelById(int tafelId)
+        //{
+        //    try
+        //    {
+        //        TafelEF tafelEF = _ctx.Tafels
+        //            .Include(x => x.Restaurant)
+        //            .AsNoTracking()
+        //            .FirstOrDefault(x => x.TafelId == tafelId);
+
+        //        if (tafelEF == null)
+        //        {
+        //            return null;
+        //        }
+        //        else
+        //        {
+        //            return MapTafel.MapToDomain(tafelEF);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new RepositoryException("GeefTafelById - Repository", ex);
+        //    }
+        //}
+
+        //public List<Tafel> GeefTafelsByDatum(DateTime datum)
+        //{
+        //    try
+        //    {
+        //        List<Tafel> tafels = new List<Tafel>();
+
+        //        List<TafelEF> tafelsEF = _ctx.Tafels
+        //            .Include(x => x.Restaurant)
+        //            .AsNoTracking()
+        //            .ToList();
+
+        //        foreach (TafelEF tafelEF in tafelsEF)
+        //        {
+        //            Tafel tafel = MapTafel.MapToDomain(tafelEF);
+        //            tafels.Add(tafel);
+        //        }
+
+        //        return tafels;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new RepositoryException("GeefTafelsByDatum - Repository", ex);
+        //    }
+        //}
+
+
+
+
+
+
     }
 }

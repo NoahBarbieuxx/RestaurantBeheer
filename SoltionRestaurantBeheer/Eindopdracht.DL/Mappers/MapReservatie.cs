@@ -17,13 +17,9 @@ namespace Eindopdracht.DL.Mappers
             {
                 GebruikerEF gebruikerEF = ctx.Gebruikers.Find(reservatie.Contactpersoon.Klantnummer);
                 RestaurantEF restaurantEF = ctx.Restaurants.Find(reservatie.Restaurantinfo.Naam);
+                TafelEF tafelEF = ctx.Tafels.Find(reservatie.Tafel.TafelId);
 
-                ReservatieEF reservatieEF = new ReservatieEF(reservatie.Reservatienummer, null, null, reservatie.AantalPlaatsen, reservatie.Datum, MapTafel.MapToDB(reservatie.Tafel, ctx));
-
-                reservatieEF.Gebruiker = gebruikerEF;
-                reservatieEF.Restaurant = restaurantEF;
-
-                return reservatieEF;
+                return new ReservatieEF(reservatie.Reservatienummer, restaurantEF, gebruikerEF, reservatie.AantalPlaatsen, reservatie.Datum, tafelEF);
             }
             catch (Exception ex)
             {

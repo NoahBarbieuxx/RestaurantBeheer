@@ -20,24 +20,18 @@ namespace EindopdrachtGebruiker.REST.Controllers
             _logger = loggerFactory.AddFile("Logs/Restaurantlogs.txt").CreateLogger("Restaurant");
         }
 
-        [HttpGet("{postcode}/{keuken}")]
-        public ActionResult<List<Restaurant>> ZoekRestaurants(string postcode, string keuken)
+        [HttpGet]
+        public ActionResult<List<Restaurant>> ZoekRestaurants(string? postcode, string? keuken)
         {
             try
             {
                 _logger.LogInformation($"ZoekRestaurant opgeroepen: {postcode}, {keuken}");
+
                 List<Restaurant> restaurants = _restaurantManager.ZoekRestaurants(postcode, keuken);
 
-                if (restaurants.Count == 0)
-                {
-                    _logger.LogError($"Restaurants niet gevonden: {postcode}, {keuken}");
-                    return BadRequest();
-                }
-                else
-                {
-                    _logger.LogInformation($"Restaurant correct opgehaald: {postcode}, {keuken}");
-                    return Ok(restaurants);
-                }
+                _logger.LogInformation($"Restaurant correct opgehaald: {postcode}, {keuken}");
+
+                return Ok(restaurants);
             }
             catch (Exception ex)
             {

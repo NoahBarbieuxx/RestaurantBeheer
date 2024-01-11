@@ -13,13 +13,11 @@ namespace EindopdrachtBeheerder.REST.Controllers
     public class TafelController : ControllerBase
     {
         private readonly TafelManager _tafelManager;
-        private readonly RestaurantManager _restaurantManager;
         private readonly ILogger _logger;
 
-        public TafelController(TafelManager tafelManager, RestaurantManager restaurantManager, ILoggerFactory loggerFactory)
+        public TafelController(TafelManager tafelManager, ILoggerFactory loggerFactory)
         {
             _tafelManager = tafelManager;
-            _restaurantManager = restaurantManager;
             _logger = loggerFactory.AddFile("Logs/Tafellogs.txt").CreateLogger("Tafel");
         }
 
@@ -28,31 +26,19 @@ namespace EindopdrachtBeheerder.REST.Controllers
         {
             try
             {
-                Restaurant restaurant = _restaurantManager.GeefRestaurantByNaam(naam);
+                _logger.LogInformation($"MaakTafel opgeroepen!");
 
-                if (restaurant == null)
-                {
-                    _logger.LogError($"Restaurant niet gevonden: {naam}");
-                    return BadRequest();
-                }
+                Tafel tafel = new Tafel(tafelInput.Plaatsen);
 
-                Tafel tafel = new Tafel(tafelInput.Tafelnummer, tafelInput.Plaatsen, restaurant);
+                _tafelManager.MaakTafel(naam, tafel);
 
-                if (_tafelManager.HeeftTafel(tafel))
-                {
-                    _logger.LogError($"Tafel bestaat al");
-                    return BadRequest();
-                }
-                else
-                {
-                    _tafelManager.MaakTafel(tafel);
-                    _logger.LogInformation($"Tafel correct aangemaakt");
-                    return Ok(tafel);
-                }
+                _logger.LogInformation($"Tafel correct aangemaakt!");
+
+                return Ok(tafel);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Tafel niet correct aangemaakt");
+                _logger.LogError($"Tafel niet correct aangemaakt!");
                 return BadRequest(ex.Message);
             }
         }

@@ -17,6 +17,15 @@ namespace Eindopdracht.BL.Models
             Contactgegevens = contactgegevens;
         }
 
+        public Restaurant(string naam, Locatie locatie, string keuken, Contactgegevens contactgegevens, List<Tafel> tafels)
+        {
+            Naam = naam;
+            Locatie = locatie;
+            Keuken = keuken;
+            Contactgegevens = contactgegevens;
+            Tafels = tafels;
+        }
+
         private string _naam;
         public string Naam
         {
@@ -93,6 +102,26 @@ namespace Eindopdracht.BL.Models
                 else
                 {
                     _contactgegevens = value;
+                }
+            }
+        }
+
+        private List<Tafel> _tafels;
+        public List<Tafel> Tafels
+        {
+            get
+            {
+                return _tafels;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ReservatieException("Tafels zijn ongeldig!");
+                }
+                else
+                {
+                    _tafels = value;
                 }
             }
         }

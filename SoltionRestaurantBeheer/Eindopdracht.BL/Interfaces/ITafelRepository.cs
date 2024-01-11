@@ -10,13 +10,11 @@ namespace Eindopdracht.BL.Interfaces
     public interface ITafelRepository
     {
         // CRUD
-        void MaakTafel(Tafel tafel);
+        void MaakTafel(string naam, Tafel tafel);
         Tafel GeefTafelById(int tafelId);
 
         // ANDERE
-        Tafel GeefTafelByNummer(string nummer);
         List<Tafel> GeefTafelsByDatum(DateTime datum);
         Tafel KiesTafel(int plaatsen);
-        bool HeeftTafel(Tafel tafel);
     }
 }

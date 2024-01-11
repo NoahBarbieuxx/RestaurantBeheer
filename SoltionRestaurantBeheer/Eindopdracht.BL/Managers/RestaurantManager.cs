@@ -66,7 +66,7 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Restaurant> ZoekRestaurants(string postcode, string keuken)
+        public List<Restaurant> ZoekRestaurants(string? postcode, string? keuken)
         {
             try
             {
@@ -78,11 +78,11 @@ namespace Eindopdracht.BL.Managers
             }
         }
 
-        public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen)
+        public List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken)
         {
             try
             {
-                return _restaurantRepository.ZoekVrijeRestaurants(datum, aantalPlaatsen);
+                return _restaurantRepository.ZoekVrijeRestaurants(datum, aantalPlaatsen, postcode, keuken);
             }
             catch (Exception ex)
             {

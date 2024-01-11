@@ -16,8 +16,8 @@ namespace Eindopdracht.BL.Interfaces
         void VerwijderRestaurant(string naam);
 
         // ANDERE
-        List<Restaurant> ZoekRestaurants(string postcode, string keuken);
-        List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen);
+        List<Restaurant> ZoekRestaurants(string? postcode, string? keuken);
+        List<Restaurant> ZoekVrijeRestaurants(DateTime datum, int aantalPlaatsen, string? postcode, string? keuken);
         bool HeeftRestaurant(Restaurant restaurant);
     }
 }

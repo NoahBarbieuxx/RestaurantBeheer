@@ -19,19 +19,22 @@ namespace EindopdrachtBeheerder.REST.Controllers
             _logger = loggerFactory.AddFile("Logs/Reservatielogs.txt").CreateLogger("Reservatie");
         }
 
-        [HttpGet("Restaurant/{naam}/Reservatie/{datum}")]
-        public ActionResult<List<Reservatie>> GeefOverzichtReservaties(string naam, DateTime datum)
+        [HttpGet("Restaurant/{naam}/Reservatie/{beginDatum}")]
+        public ActionResult<List<Reservatie>> GeefOverzichtReservaties(string naam, DateTime beginDatum, DateTime? eindDatum)
         {
             try
             {
-                _logger.LogInformation($"GeefOverzichtReservaties opgeroepen: {naam}, {datum}");
-                List<Reservatie> reservaties = _reservatieManager.GeefOverzichtReservaties(naam, datum);
-                _logger.LogInformation($"Reservaties correct opgehaald: {naam}, {datum}");
+                _logger.LogInformation($"GeefOverzichtReservaties opgeroepen: {naam}, {beginDatum}");
+
+                List<Reservatie> reservaties = _reservatieManager.GeefOverzichtReservaties(naam, beginDatum, eindDatum);
+
+                _logger.LogInformation($"Reservaties correct opgehaald: {naam}, {beginDatum}");
+
                 return Ok(reservaties);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Reservaties niet correct opgehaald: {naam}, {datum}");
+                _logger.LogError($"Reservaties niet correct opgehaald: {naam}, {beginDatum}");
                 return NotFound(ex.Message);
             }
         }

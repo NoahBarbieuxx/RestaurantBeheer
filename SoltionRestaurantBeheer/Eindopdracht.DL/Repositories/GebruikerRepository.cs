@@ -21,41 +21,48 @@ namespace Eindopdracht.DL.Repositories
             _ctx = new RestaurantBeheerContext(connectionString);
         }
 
-        public Gebruiker GeefGebruikerById(int klantnummer)
-        {
-            try
-            {
-                GebruikerEF gebruikerEF = _ctx.Gebruikers
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.Klantnummer == klantnummer);
-
-                if (gebruikerEF == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return MapGebruiker.MapToDomain(gebruikerEF);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new RepositoryException("GeefGebruikerById - Repository", ex);
-            }
-        }
-
         public void RegistreerGebruiker(Gebruiker gebruiker)
         {
             try
             {
-                GebruikerEF gebruikerEF = MapGebruiker.MapToDB(gebruiker);
-                _ctx.Gebruikers.Add(gebruikerEF);
-                SaveAndClear();
-                gebruiker.Klantnummer = gebruikerEF.Klantnummer;
+                if (!HeeftGebruiker(gebruiker))
+                {
+                    GebruikerEF gebruikerEF = MapGebruiker.MapToDB(gebruiker);
+                    _ctx.Gebruikers.Add(gebruikerEF);
+                    SaveAndClear();
+                    gebruiker.Klantnummer = gebruikerEF.Klantnummer;
+                }
+                else
+                {
+                    throw new GebruikerRepositoryException("Gebruiker bestaat al in het systeem! (Email & telefoonnummer)");
+                }
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("RegistreerGebruiker - Repository", ex);
+                throw new GebruikerRepositoryException("RegistreerGebruiker", ex);
+            }
+        }
+
+        public Gebruiker GeefGebruikerById(int klantnummer)
+        {
+            try
+            {
+                if (_ctx.Gebruikers.Any(x => x.Klantnummer == klantnummer))
+                {
+                    GebruikerEF gebruikerEF = _ctx.Gebruikers
+                        .AsNoTracking()
+                        .FirstOrDefault(x => x.Klantnummer == klantnummer);
+
+                    return MapGebruiker.MapToDomain(gebruikerEF);
+                }
+                else
+                {
+                    throw new GebruikerRepositoryException($"Gebruiker met klantnummer: {klantnummer} niet gevonden!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new GebruikerRepositoryException("GeefGebruikerById", ex);
             }
         }
 
@@ -63,36 +70,41 @@ namespace Eindopdracht.DL.Repositories
         {
             try
             {
-                if (gebruiker == null)
-                {
-                    throw new RepositoryException("Gebruiker is null");
-                }
-                else
+                if (_ctx.Gebruikers.Any(x => x.Klantnummer == gebruiker.Klantnummer))
                 {
                     _ctx.Gebruikers.Update(MapGebruiker.MapToDB(gebruiker));
                     SaveAndClear();
                 }
+                else
+                {
+                    throw new GebruikerRepositoryException($"Gebruiker met klantnummer: {gebruiker.Klantnummer} niet gevonden!");
+                }
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("PasGebruikerAan - Repository", ex);
+                throw new GebruikerRepositoryException("PasGebruikerAan", ex);
             }
         }
-
 
         public void SchrijfGebruikerUit(int klantnummer)
         {
             try
             {
-                GebruikerEF gebruikerEF = _ctx.Gebruikers.FirstOrDefault(x => x.Klantnummer == klantnummer);
+                GebruikerEF gebruikerEF = _ctx.Gebruikers.Find(klantnummer);
 
-                gebruikerEF.Actief = 0;
-
-                SaveAndClear();
+                if (gebruikerEF != null)
+                {
+                    gebruikerEF.Actief = 0;
+                    SaveAndClear();
+                }
+                else
+                {
+                    throw new GebruikerRepositoryException($"Gebruiker met klantnummer: {klantnummer} niet gevonden!");
+                }
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("SchrijfGebruikerUit - Repository", ex);
+                throw new GebruikerRepositoryException("SchrijfGebruikerUit", ex);
             }
         }
 
@@ -104,7 +116,7 @@ namespace Eindopdracht.DL.Repositories
             }
             catch (Exception ex)
             {
-                throw new RepositoryException("HeeftGebruiker - Repository", ex);
+                throw new GebruikerRepositoryException("HeeftGebruiker", ex);
             }
         }
 

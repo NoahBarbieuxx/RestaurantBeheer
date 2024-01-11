@@ -11,18 +11,11 @@ namespace Eindopdracht.DL.Mappers
 {
     public class MapTafel
     {
-        public static TafelEF MapToDB(Tafel tafel, RestaurantBeheerContext ctx)
+        public static TafelEF MapToDB(Tafel tafel)
         {
             try
-            {
-                RestaurantEF restaurantEF = ctx.Restaurants.Find(tafel.Restaurant.Naam);
-
-                TafelEF tafelEF = new TafelEF(tafel.TafelId, tafel.Tafelnummer, tafel.Plaatsen, null);
-
-                tafelEF.Restaurant = restaurantEF;
-
-                return tafelEF;
-                
+            {                
+                return new TafelEF(tafel.TafelId, tafel.Plaatsen);
             }
             catch (Exception ex)
             {
@@ -34,16 +27,13 @@ namespace Eindopdracht.DL.Mappers
         {
             try
             {
-                Locatie locatie = new Locatie(tafelEF.Restaurant.Postcode, tafelEF.Restaurant.Gemeentenaam, tafelEF.Restaurant.Straatnaam, tafelEF.Restaurant.Huisnummer);
-                Contactgegevens contactgegevens = new Contactgegevens(tafelEF.Restaurant.Telefoonnummer, tafelEF.Restaurant.Email);
-                Restaurant restaurant = new Restaurant(tafelEF.Restaurant.Naam, locatie, tafelEF.Restaurant.Keuken, contactgegevens);
-
-                return new Tafel(tafelEF.TafelId, tafelEF.Tafelnummer, tafelEF.Plaatsen, restaurant);
+                return new Tafel(tafelEF.TafelId, tafelEF.Plaatsen);
             }
             catch (Exception ex)
             {
                 throw new MapperException("MapTafel - MapToDomain", ex);
             }
         }
+
     }
 }

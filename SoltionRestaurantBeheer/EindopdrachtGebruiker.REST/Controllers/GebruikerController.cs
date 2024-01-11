@@ -21,55 +21,50 @@ namespace EindopdrachtGebruiker.REST.Controllers
             _logger = loggerFactory.AddFile("Logs/Gebruikerlogs.txt").CreateLogger("Gebruiker");
         }
 
-        [HttpGet("{klantnummer}")]
-        public ActionResult<Gebruiker> GeefGebruikerById(int klantnummer)
-        {
-            try
-            {
-                _logger.LogInformation($"GeefGebruikerById opgeroepen: {klantnummer}");
-
-                if (_gebruikerManager.GeefGebruikerById(klantnummer) == null)
-                {
-                    _logger.LogError($"Gebruiker niet gevonden: {klantnummer}");
-                    return BadRequest();
-                }
-                else
-                {
-                    Gebruiker gebruiker = _gebruikerManager.GeefGebruikerById(klantnummer);
-                    _logger.LogInformation($"Gebruiker correct opgehaald: {klantnummer}");
-                    return Ok(gebruiker);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Gebruiker niet correct opgehaald: {klantnummer}");
-                return NotFound(ex.Message);
-            }
-        }
-
         [HttpPost]
         public ActionResult<GebruikerOutput> RegistreerGebruiker([FromBody] GebruikerInput gebruikerInput)
         {
             try
             {
+                _logger.LogInformation($"RegistreerGebruiker opgeroepen!");
                 Gebruiker gebruiker = new Gebruiker(gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, gebruikerInput.Locatie, gebruikerInput.Actief);
-                
+
                 if (_gebruikerManager.HeeftGebruiker(gebruiker))
                 {
-                    _logger.LogError($"Gebruiker bestaat al");
+                    _logger.LogError($"Gebruiker met naam: {gebruikerInput.Naam} en email: {gebruikerInput.Email} bestaatl al!");
                     return BadRequest();
                 }
                 else
                 {
                     _gebruikerManager.RegistreerGebruiker(gebruiker);
-                    _logger.LogInformation("Gebruiker correct geregistreerd");
+                    _logger.LogInformation("Gebruiker correct geregistreerd!");
                     return CreatedAtAction(nameof(GeefGebruikerById), new { klantnummer = gebruiker.Klantnummer }, gebruikerInput);
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError("Gebruiker niet correct geregistreerd");
+                _logger.LogError("Gebruiker niet correct geregistreerd!");
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{klantnummer}")]
+        public ActionResult<Gebruiker> GeefGebruikerById(int klantnummer)
+        {
+            try
+            {
+                _logger.LogInformation($"GeefGebruikerById opgeroepen: {klantnummer}!");
+
+                Gebruiker gebruiker = _gebruikerManager.GeefGebruikerById(klantnummer);
+
+                _logger.LogInformation($"Gebruiker correct opgehaald: {klantnummer}");
+
+                return Ok(gebruiker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Gebruiker met id: {klantnummer} niet correct opgehaald!");
+                return NotFound(ex.Message);
             }
         }
 
@@ -78,23 +73,19 @@ namespace EindopdrachtGebruiker.REST.Controllers
         {
             try
             {
+                _logger.LogInformation($"PasGebruikerAan opgeroepen: {klantnummer}!");
+
                 Gebruiker gebruiker = new Gebruiker(klantnummer, gebruikerInput.Naam, gebruikerInput.Email, gebruikerInput.Telefoonnummer, gebruikerInput.Actief, gebruikerInput.Locatie);
 
-                if (_gebruikerManager.GeefGebruikerById(klantnummer) == null)
-                {
-                    _logger.LogError($"Gebruiker niet gevonden: {klantnummer}");
-                    return BadRequest();
-                }
-                else
-                {
-                    _gebruikerManager.PasGebruikerAan(gebruiker);
-                    _logger.LogInformation($"Gebruiker correct aangepast: {klantnummer}");
-                    return Ok(gebruiker);
-                }
+                _gebruikerManager.PasGebruikerAan(gebruiker);
+
+                _logger.LogInformation($"Gebruiker met id: {klantnummer} correct aangepast!");
+
+                return Ok(gebruiker);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Gebruiker niet correct aangepast: {klantnummer}");
+                _logger.LogError($"Gebruiker met id: {klantnummer} niet correct aangepast!");
                 return BadRequest(ex.Message);
             }
         }
@@ -104,21 +95,17 @@ namespace EindopdrachtGebruiker.REST.Controllers
         {
             try
             {
-                if (_gebruikerManager.GeefGebruikerById(klantnummer) == null)
-                {
-                    _logger.LogError($"Gebruiker niet gevonden: {klantnummer}");
-                    return BadRequest();
-                }
-                else
-                {
-                    _gebruikerManager.SchrijfGebruikerUit(klantnummer);
-                    _logger.LogInformation($"Gebruiker correct uitgeschreven: {klantnummer}");
-                    return NoContent();
-                }
+                _logger.LogInformation($"SchrijfGebruikerUit opgeroepen: {klantnummer}!");
+
+                _gebruikerManager.SchrijfGebruikerUit(klantnummer);
+
+                _logger.LogInformation($"Gebruiker correct uitgeschreven: {klantnummer}!");
+
+                return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Gebruiker niet correct uitgeschreven: {klantnummer}");
+                _logger.LogError($"Gebruiker niet correct uitgeschreven: {klantnummer}!");
                 return NotFound(ex.Message);
             }
         }

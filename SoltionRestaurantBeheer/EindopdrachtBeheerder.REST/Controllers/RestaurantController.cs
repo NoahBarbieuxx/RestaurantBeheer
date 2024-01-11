@@ -20,25 +20,23 @@ namespace EindopdrachtBeheerder.REST.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Restaurant> RegistreerRestaurant([FromBody] Restaurant restaurant)
+        public ActionResult<RestaurantInput> RegistreerRestaurant([FromBody] RestaurantInput restaurantInput)
         {
             try
             {
-                if (_restaurantManager.HeeftRestaurant(restaurant))
-                {
-                    _logger.LogError($"Restaurant bestaat al");
-                    return BadRequest();
-                }
-                else
-                {
-                    _restaurantManager.RegistreerRestaurant(restaurant);
-                    _logger.LogInformation($"Restaurant correct aangemaakt");
-                    return Ok(restaurant);
-                }
+                _logger.LogInformation($"RegistreerRestaurant aangeroepen!");
+
+                Restaurant restaurant = new Restaurant(restaurantInput.Naam, restaurantInput.Locatie, restaurantInput.Keuken, restaurantInput.Contactgegevens);
+
+                _restaurantManager.RegistreerRestaurant(restaurant);
+
+                _logger.LogInformation($"Restaurant correct aangemaakt!");
+
+                return Ok(restaurant);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Restaurant niet correct aangemaakt");
+                _logger.LogError($"Restaurant niet correct aangemaakt!");
                 return BadRequest(ex.Message);
             }
         }
@@ -48,23 +46,19 @@ namespace EindopdrachtBeheerder.REST.Controllers
         {
             try
             {
+                _logger.LogInformation($"PasRestaurantAan aangeroepen: {naam}!");
+
                 Restaurant restaurant = new Restaurant(naam, restaurantInput.Locatie, restaurantInput.Keuken, restaurantInput.Contactgegevens);
 
-                if (_restaurantManager.GeefRestaurantByNaam(naam) == null)
-                {
-                    _logger.LogError($"Restaurant bestaat niet: {naam}");
-                    return BadRequest();
-                }
-                else
-                {
-                    _restaurantManager.PasRestaurantAan(restaurant);
-                    _logger.LogInformation($"Restaurant correct aangepast: {naam}");
-                    return Ok(restaurant);
-                }
+                _restaurantManager.PasRestaurantAan(restaurant);
+
+                _logger.LogInformation($"Restaurant correct aangepast: {naam}!");
+
+                return Ok(restaurant);
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Restaurant niet correct aangepast: {naam}");
+                _logger.LogError($"Restaurant niet correct aangepast: {naam}!");
                 return BadRequest(ex.Message);
             }
         }
@@ -74,21 +68,17 @@ namespace EindopdrachtBeheerder.REST.Controllers
         {
             try
             {
-                if (_restaurantManager.GeefRestaurantByNaam(naam) == null)
-                {
-                    _logger.LogError($"Restaurant bestaat niet: {naam}");
-                    return BadRequest();
-                }
-                else
-                {
-                    _restaurantManager.VerwijderRestaurant(naam);
-                    _logger.LogInformation($"Restaurant correct verwijderd: {naam}");
-                    return NoContent();
-                }
+                _logger.LogInformation($"VerwijderRestaurant aangeroepen: {naam}!");
+
+                _restaurantManager.VerwijderRestaurant(naam);
+
+                _logger.LogInformation($"Restaurant correct verwijderd: {naam}!");
+
+                return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Restaurant niet correct verwijderd: {naam}");
+                _logger.LogError($"Restaurant niet correct verwijderd: {naam}!");
                 return NotFound(ex.Message);
             }
         }
