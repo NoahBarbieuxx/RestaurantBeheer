@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "eOEOFI7UawKq1gXmfZNuoswQMGGIIlBmg17JbV0pq3M=",
+  "Source": "EindopdrachtBeheerder.REST",
+  "BasePath": "_content/EindopdrachtBeheerder.REST",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

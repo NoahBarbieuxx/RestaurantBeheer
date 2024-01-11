@@ -1,0 +1,2 @@
+2024-01-08T00:08:47.0817293+01:00  [INF] Tafel correct aangemaakt (2dcec18b)
+2024-01-08T00:09:28.7291456+01:00 0HN0FQM6NNN1C:00000003 [INF] GeefOverzichtReservaties opgeroepen: s, 1/01/2024 0:00:00 (aadb0674)

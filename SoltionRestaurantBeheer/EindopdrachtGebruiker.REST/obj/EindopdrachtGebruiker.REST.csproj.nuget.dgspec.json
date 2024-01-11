@@ -1,0 +1,203 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\EindopdrachtGebruiker.REST\\EindopdrachtGebruiker.REST.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj",
+        "projectName": "Eindopdracht.BL",
+        "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj",
+        "packagesPath": "C:\\Users\\barbi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\barbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\Eindopdracht.DL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\Eindopdracht.DL.csproj",
+        "projectName": "Eindopdracht.DL",
+        "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\Eindopdracht.DL.csproj",
+        "packagesPath": "C:\\Users\\barbi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\barbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj": {
+                "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\EindopdrachtGebruiker.REST\\EindopdrachtGebruiker.REST.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\EindopdrachtGebruiker.REST\\EindopdrachtGebruiker.REST.csproj",
+        "projectName": "EindopdrachtGebruiker.REST",
+        "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\EindopdrachtGebruiker.REST\\EindopdrachtGebruiker.REST.csproj",
+        "packagesPath": "C:\\Users\\barbi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\EindopdrachtGebruiker.REST\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\barbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj": {
+                "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.BL\\Eindopdracht.BL.csproj"
+              },
+              "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\Eindopdracht.DL.csproj": {
+                "projectPath": "C:\\Users\\barbi\\Documents\\hogent\\sem3\\1 - Web4 (MA)\\Solutions\\EindopdrachtWeb4\\EindopdrachtWeb4_Barbieux_Noah\\SoltionRestaurantBeheer\\Eindopdracht.DL\\Eindopdracht.DL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
