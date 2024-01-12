@@ -162,18 +162,51 @@ namespace Eindopdracht.DL.Repositories
 
                 DateTime eindTijdGrens = datum.AddMinutes(90);
 
-                query = query.Where(restaurant =>
-                    restaurant.Tafels.Any(tafel =>
-                        !restaurant.Reservaties.Any(reservatie =>
-                            (datum >= reservatie.Datum && datum < reservatie.Datum.AddMinutes(90)) ||
-                            (eindTijdGrens > reservatie.Datum && eindTijdGrens <= reservatie.Datum.AddMinutes(90))
+                List<Restaurant> resultaten = query
+                    .Where(restaurant =>
+                        restaurant.Tafels.Any(tafel =>
+                            tafel.Plaatsen >= aantalPlaatsen &&
+                            !restaurant.Reservaties.Any(reservatie =>
+                                (datum >= reservatie.Datum && datum < reservatie.Datum.AddMinutes(90)) ||
+                                (eindTijdGrens > reservatie.Datum && eindTijdGrens <= reservatie.Datum.AddMinutes(90))
+                            )
                         )
                     )
-                );
-
-                List<Restaurant> resultaten = query
                     .Select(x => MapRestaurant.MapToDomain(x))
                     .ToList();
+
+                foreach (Restaurant restaurant in resultaten)
+                {
+                    List<Tafel> tafelsTeVerwijderen = new List<Tafel>();
+
+                    foreach (Tafel tafel in restaurant.Tafels)
+                    {
+                        if (tafel.Plaatsen < aantalPlaatsen)
+                        {
+                            tafelsTeVerwijderen.Add(tafel);
+                        }
+                    }
+
+                    foreach (Tafel tafel in tafelsTeVerwijderen)
+                    {
+                        restaurant.Tafels.Remove(tafel);
+                    }
+                }
+                if (!string.IsNullOrEmpty(postcode))
+                {
+                    var postcodeResultaten = query.Where(x => x.Postcode == postcode)
+                        .Select(x => MapRestaurant.MapToDomain(x))
+                        .ToList();
+                    resultaten.AddRange(postcodeResultaten);
+                }
+
+                if (!string.IsNullOrEmpty(keuken))
+                {
+                    var keukenResultaten = query.Where(x => x.Keuken == keuken)
+                         .Select(x => MapRestaurant.MapToDomain(x))
+                        .ToList();
+                    resultaten.AddRange(keukenResultaten);
+                }
 
                 return resultaten;
             }

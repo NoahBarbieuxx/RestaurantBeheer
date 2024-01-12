@@ -54,12 +54,6 @@ namespace EindopdrachtGebruiker.REST.Controllers
             }
         }
 
-        private DateTime RoundToNearestHalfHour(DateTime input)
-        {
-            int minutes = (input.Minute + 15) / 30 * 30;
-            return new DateTime(input.Year, input.Month, input.Day, input.Hour, minutes, 0);
-        }
-
         [HttpGet("geefreservatiebyid{reservatienummer}")]
         public ActionResult<Gebruiker> GeefReservatieById(int reservatienummer)
         {
@@ -96,7 +90,8 @@ namespace EindopdrachtGebruiker.REST.Controllers
                 }
                 else
                 {
-                    Reservatie updatedReservatie = new Reservatie(reservatienummer, reservatie.Restaurantinfo, reservatie.Contactpersoon, reservatieInput.AantalPlaatsen, reservatieInput.Datum, reservatie.Tafel);
+                    DateTime afgerondeDatum = RoundToNearestHalfHour(reservatieInput.Datum);
+                    Reservatie updatedReservatie = new Reservatie(reservatienummer, reservatie.Restaurantinfo, reservatie.Contactpersoon, reservatieInput.AantalPlaatsen, afgerondeDatum, reservatie.Tafel);
 
                     _reservatieManager.PasReservatieAan(updatedReservatie);
 
@@ -160,6 +155,12 @@ namespace EindopdrachtGebruiker.REST.Controllers
                 _logger.LogError($"Reservaties niet correct opgehaald: {datum}!");
                 return BadRequest(ex.Message);
             }
+        }
+
+        private DateTime RoundToNearestHalfHour(DateTime input)
+        {
+            int minutes = (input.Minute + 15) / 30 * 30;
+            return new DateTime(input.Year, input.Month, input.Day, input.Hour, minutes, 0);
         }
     }
 }
